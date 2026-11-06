@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="{% if lang == 'es' %}es{% else %}en{% endif %}">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width" />
+  <title>alzze</title>
+  <meta name="description" content="alzze personal blog" />
+  <meta name="author" content="alzze" />
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon.png">
+</head>
+<body>
+  <main>
+    <a href="/">ALZZE</a>
+
+    <ul>
+      {% for post in posts %}
+      <li>
+        <a class="index-title" href="{{ post['url'] }}">{{ post['title'] }}</a>
+        {% if post['date'] %}<time datetime="{{ post['date'] }}">{{ post['date'].replace('-', '.') }}</time>{% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </main>
+  <footer>
+    <a href="https://x.com/alzzeat" target="_blank">x.com/alzzeat</a>
+  </footer>
+</body>
+</html>

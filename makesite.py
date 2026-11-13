@@ -75,7 +75,6 @@ def generate_posts(posts, base_dir='posts'):
 
 if __name__ == '__main__':
     en_posts = get_posts('posts', '/posts/')
-    es_posts = get_posts('posts/es', '/es/posts/')
 
     create_directory('')
     shutil.copytree('static', 'dist', dirs_exist_ok=True)

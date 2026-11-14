@@ -10,7 +10,8 @@ from urllib.parse import unquote
 
 MAX_WIDTH = 1000
 WEBP_QUALITY = 85
-SOURCE_EXTENSIONS = {".png", ".jpg", ".jpeg"}
+HEIF_EXTENSIONS = {".heic", ".heif"}
+SOURCE_EXTENSIONS = {".png", ".jpg", ".jpeg"} | HEIF_EXTENSIONS
 
 MARKDOWN_TOKEN = re.compile(
     r"(?P<code>^[ ]{0,3}(?P<fence>(?P<marker>`|~)(?P=marker){2,})[^\r\n]*\r?\n"
@@ -52,6 +53,16 @@ def rewrite_markdown(content, replacements):
 def convert_image(source, destination):
     from PIL import Image, ImageOps
 
+    if source.suffix.lower() in HEIF_EXTENSIONS:
+        try:
+            from pillow_heif import register_heif_opener
+        except ImportError as error:
+            raise ValueError(
+                "HEIC/HEIF support requires pillow-heif. Install it with: "
+                "python3 -m pip install -r scripts/requirements.txt"
+            ) from error
+        register_heif_opener(thumbnails=False)
+
     with Image.open(source) as original:
         if getattr(original, "is_animated", False):
             raise ValueError(f"Animated images are not supported: {source}")
@@ -61,13 +72,19 @@ def convert_image(source, destination):
         if image.width > MAX_WIDTH:
             height = max(1, round(image.height * MAX_WIDTH / image.width))
             image = image.resize((MAX_WIDTH, height), Image.Resampling.LANCZOS)
-        image.save(destination, format="WEBP", quality=WEBP_QUALITY, method=6)
+        image = Image.frombytes(image.mode, image.size, image.tobytes())
+        image.save(
+            destination, format="WEBP", quality=WEBP_QUALITY, method=6,
+            exif=b"", xmp=b"", icc_profile=b"",
+        )
         expected_size = image.size
 
     with Image.open(destination) as result:
         result.load()
         if result.format != "WEBP" or result.size != expected_size:
             raise ValueError(f"Failed to validate the WebP image for {source}")
+        if any(key in result.info for key in ("exif", "xmp", "icc_profile")):
+            raise ValueError(f"WebP metadata was not removed for {source}")
 
 
 def temporary_path(directory, suffix):

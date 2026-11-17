@@ -3,15 +3,23 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width" />
-  <title>{{ post["title"] }} - alzze</title>
-  <meta name="description" content={{ post["description"] }} />
+  {% set description = post.get('description') or (post['content'] | striptags | truncate(200)) or post['title'] %}
+  <title>{{ post["title"] | e }} - alzze</title>
+  <meta name="description" content="{{ description | e }}" />
   <meta name="author" content="alzze" />
+  <link rel="canonical" href="https://alzze.xyz{{ post['url'] | e }}" />
   <link rel="stylesheet" href="/styles.css">
   <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon.png">
 
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="alzze" />
+  <meta property="og:title" content="{{ post['title'] | e }}" />
+  <meta property="og:description" content="{{ description | e }}" />
+  <meta property="og:url" content="https://alzze.xyz{{ post['url'] | e }}" />
+
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content={{ post["title"] }} />
-  <meta name="twitter:image" content="https://alzze.xyz/img/favicon.png" />
+  <meta name="twitter:title" content="{{ post['title'] | e }}" />
+  <meta name="twitter:description" content="{{ description | e }}" />
 
   {% if post["math"]%}
   <script>
@@ -30,7 +38,7 @@
 <body>
   <main>
     <a href="/" style="color:#2a7ae2">all posts</a>
-    <h1>{{ post["title"] }}</h1>
+    <h1>{{ post["title"] | e }}</h1>
     <span>{{ post["date"]}}</span>
     <article>
       {{ post["content"] }}

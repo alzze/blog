@@ -4,14 +4,21 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width" />
   {% set description = post.get('description') or (post['content'] | striptags | truncate(200)) or post['title'] %}
-  <title>{{ post["title"] | e }} - alzze</title>
+  <title>{{ post["title"] | e }}</title>
   <meta name="description" content="{{ description | e }}" />
   <meta name="author" content="alzze" />
+  <link rel="canonical" href="https://alzze.xyz{{ post['url'] | e }}" />
   <link rel="stylesheet" href="/styles.css">
-  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon.png">
+
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="alzze" />
+  <meta property="og:title" content="{{ post['title'] | e }}" />
+  <meta property="og:description" content="{{ description | e }}" />
+  <meta property="og:url" content="https://alzze.xyz{{ post['url'] | e }}" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="{{ post['title'] }}" />
+  <meta name="twitter:title" content="{{ post['title'] | e }}" />
+  <meta name="twitter:description" content="{{ description | e }}" />
 
   {% if post["math"]%}
   <script>

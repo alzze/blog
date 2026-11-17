@@ -30,3 +30,4 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;fon
 pre{background:rgba(0,0,0,.04);padding:1rem 1.2rem;border-radius:6px;overflow-x:auto;margin:1.75em 0;font-size:.9em;line-height:1.5}
 pre code{background:none;padding:0;border-radius:0;font-size:inherit}
 article ul,article ol{margin:1.25em 0;padding-left:1.5em}article ul{list-style:disc}article ol{list-style:decimal}article li{display:list-item;font-weight:400;margin:.35em 0;padding:0}article li::marker{color:rgba(0,0,0,.4)}
+blockquote{font-style:italic; border-left: 3px solid rgba(182, 176, 176, 0.853); padding-left: 2rem; margin-left: 0; font-weight:bold}

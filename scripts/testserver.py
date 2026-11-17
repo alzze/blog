@@ -127,7 +127,7 @@ def main():
     parser = argparse.ArgumentParser(
         description="Development server with automatic site rebuilds and browser reload."
     )
-    parser.add_argument("--host", default="127.0.0.1", help="Listening address")
+    parser.add_argument("--host", default="0.0.0.0", help="Listening address")
     parser.add_argument("--port", type=int, default=8000, help="Port (default: 8000)")
     args = parser.parse_args()
     if not 0 <= args.port <= 65535:

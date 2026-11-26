@@ -131,7 +131,7 @@ For more details, see the [Session tokenomics documentation](https://docs.getses
 
 ### Onion Requests
 
-We now have a decentralized network capable of delivering encrypted messages. But another problem remains: **how does Alice communicate with a Session Node without revealing her IP address to the server storing Bob's messages?**
+We now have a decentralized network capable of delivering encrypted messages. But another problem remains: how does Alice communicate with a Session Node without revealing her IP address to the server storing Bob's messages?
 
 If Alice connected directly to Bob's storage server, that server could observe her IP address and the Account ID associated with the storage request.
 
@@ -171,7 +171,7 @@ The result is that no individual node on the path needs to know both the origin 
 
 There is also an important distinction between the two encryption layers involved.
 
-**End-to-end encryption protects the message content. Onion routing protects the transport of the request.**
+End-to-end encryption protects the message content. Onion routing protects the transport of the request.
 
 When Alice sends a message, the destination server may decrypt the onion request to process the storage operation, but the actual message remains encrypted for Bob.
 
@@ -243,7 +243,7 @@ This separation between sender, recipient, and storage infrastructure is what al
 
 Storage is temporary.
 
-By default, ordinary messages have a **14-day Time to Live (TTL)**. Once this period expires, honest nodes remove them from their storage.
+By default, ordinary messages have a 14-day Time to Live (TTL). Once this period expires, honest nodes remove them from their storage.
 
 Session also uses different *namespaces* to separate categories of data.
 
@@ -265,7 +265,7 @@ At this point, we can reconstruct the complete journey of a message:
 4. A node in Bob's swarm receives the ciphertext and replicates it to the other members.
 5. Bob later polls his swarm through his own onion route, retrieves the ciphertext, and decrypts it locally.
 
-This is the core of Session's architecture: **cryptographic identities, decentralized routing, and distributed temporary storage, operating without requiring users to establish direct connections with one another.**
+This is the core of Session's architecture: cryptographic identities, decentralized routing, and distributed temporary storage, operating without requiring users to establish direct connections with one another.
 
 ## Security trade-offs and limitations
 
@@ -348,19 +348,5 @@ Session is also developing a more advanced network transport called Session Rout
 It is important to separate these improvements. **A stronger onion-routing transport does not replace the need for a secure end-to-end messaging protocol.** Both layers protect different information.
 
 The [October 2026 development update](https://getsession.org/blog/session-protocol-v2-update) provides more details about V2's implementation and remaining work.
-
-## Conclusion
-
-Session takes an interesting approach to private messaging. Instead of depending on a centralized provider to manage accounts, route messages, and store encrypted conversations, it distributes these responsibilities across a network of independently operated nodes.
-
-Its architecture combines several mechanisms that solve different problems: public-key identities remove the need for personal information at registration, onion routing reduces the exposure of network metadata, and swarms allow encrypted messages to be delivered asynchronously without relying on a single server.
-
-The economic incentive model attempts to keep this infrastructure available while making large-scale Sybil attacks more expensive.
-
-None of these mechanisms makes Session completely anonymous or immune to compromise. Its current messaging protocol has important limitations, and its security still depends on the implementation, the distribution of node operators, and the assumptions made about potential adversaries.
-
-Session Protocol V2 aims to address some of those weaknesses, particularly the absence of Forward Secrecy and protection against future quantum attacks.
-
-I think Session is worth understanding and considering, particularly for people who want to reduce their dependence on centralized messaging infrastructure. But it should be evaluated for what it actually protects, not simply because it is decentralized.
 
 For anyone interested in the technical details, I recommend reading the original [whitepaper](https://arxiv.org/pdf/2002.04609), the [current documentation](https://docs.getsession.org/), and the [source code](https://github.com/session-foundation).

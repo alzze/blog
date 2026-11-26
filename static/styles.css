@@ -31,3 +31,17 @@ pre{background:rgba(0,0,0,.04);padding:1rem 1.2rem;border-radius:6px;overflow-x:
 pre code{background:none;padding:0;border-radius:0;font-size:inherit}
 article ul,article ol{margin:1.25em 0;padding-left:1.5em}article ul{list-style:disc}article ol{list-style:decimal}article li{display:list-item;font-weight:400;margin:.35em 0;padding:0}article li::marker{color:rgba(0,0,0,.4)}
 blockquote{font-style:italic; border-left: 3px solid rgba(182, 176, 176, 0.853); padding-left: 2rem; margin-left: 0; font-weight:bold}
+
+@media screen and (prefers-color-scheme:dark){
+  html{color-scheme:dark;background:#101418;color:#eaecf0;--link-color:#88a3e8}
+  body{color:#d8dadd}
+  h1,main>a:first-child,main>a:first-child:hover,footer,footer a,footer a:hover,th,code{color:#eaecf0}
+  a,a.index-title,main>a[href="/"]:not(:first-child){color:var(--link-color)}
+  /* The post template sets the “all posts” link color inline. */
+  main>a[href="/"]:first-child{color:var(--link-color) !important}
+  time,main>span,article li::marker{color:#a2a9b1}
+  td{border-bottom-color:#343a40}
+  th,blockquote{border-color:#54595d}
+  tr:hover td{background:#191e23}
+  code,pre{background:#20262c}
+}
